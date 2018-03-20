@@ -29,10 +29,12 @@ $json = <<<EOD
 }
 EOD;
 
+//comunicacion con el servidor de exportacion
 $ch = curl_init();
 curl_setopt($ch,CURLOPT_URL, 'http://192.168.0.8:8099');
 curl_setopt($ch,CURLOPT_POST, 1);
 curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
+//indicar tipo de dato de entrada y tipo de dato de salida esperado
 curl_setopt($ch,CURLOPT_POSTFIELDS, array('infile' => $json, 'type' => 'png') );
 
 //execute post
@@ -41,5 +43,6 @@ $result = curl_exec($ch);
 //close connection
 curl_close($ch);
 
+//guardar imagen localmente
 $fichero = time().".png";
 file_put_contents($fichero, $result);
